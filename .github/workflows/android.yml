@@ -28,7 +28,7 @@ jobs:
           cp $S/MainActivity.java $A/app/src/main/java/com/shirdal/armenian/
           cp $S/strings.xml $A/app/src/main/res/values/
           for d in mdpi hdpi xhdpi xxhdpi xxxhdpi; do mkdir -p $A/app/src/main/res/mipmap-$d; cp $S/ic_$d.png $A/app/src/main/res/mipmap-$d/ic_launcher.png; done
-          cp docs/index.html docs/icon-192.png $A/app/src/main/assets/www/
+          cp docs/app/index.html docs/app/icon-192.png $A/app/src/main/assets/www/
           sed -i "s#<script>if('serviceWorker'[^<]*</script>##" $A/app/src/main/assets/www/index.html
       - name: Build APK
         run: gradle -p build-android assembleRelease assembleDebug --no-daemon
