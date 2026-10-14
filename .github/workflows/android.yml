@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch: {}
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,3 +40,11 @@ jobs:
           path: |
             shirdal-armenian-unsigned.apk
             build-android/app/build/outputs/apk/debug/app-debug.apk
+      - name: Publish APK to apk-build branch
+        run: |
+          mkdir out && cp shirdal-armenian-unsigned.apk out/ && cd out
+          git init -q -b apk-build
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A && git commit -qm "APK build ${{ github.sha }}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" apk-build
