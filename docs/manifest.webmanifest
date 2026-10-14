@@ -1,0 +1,18 @@
+{
+  "name": "آموزش ارمنی گروه شیردال",
+  "short_name": "ارمنی شیردال",
+  "description": "آموزش خواندن، نوشتن و صحبت ارمنی برای فارسی‌زبانان",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#efe5e0",
+  "theme_color": "#c45f1c",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
