@@ -161,7 +161,7 @@ footer img{width:44px;filter:var(--logo)}
   <section id="faq">
     <h2>پرسش‌های رایج</h2>
     <details><summary>هر کد روی چند دستگاه کار می‌کند؟</summary><p>هر کد فقط روی یک دستگاه فعال می‌شود. برای هر گوشی یا تبلت یک کد جدا لازم است.</p></details>
-    <details><summary>اگر گوشی‌ام را عوض کنم یا برنامه را پاک کنم چه می‌شود؟</summary><p>با پشتیبانی گروه شیردال تماس بگیرید تا کد شما برای دستگاه جدید آزاد شود. کد روی دستگاه قبلی غیرفعال می‌شود.</p></details>
+    <details><summary>اگر گوشی‌ام را عوض کنم یا برنامه را پاک کنم چه می‌شود؟</summary><p>به واتس‌اپ گروه شیردال <span dir="ltr">+374 43 805557</span> پیام دهید تا کد شما برای دستگاه جدید آزاد شود. کد روی دستگاه قبلی غیرفعال می‌شود.</p></details>
     <details><summary>آیا اینترنت لازم است؟</summary><p>فقط برای فعال‌سازی بار اول. بعد از آن درس‌ها و صداها روی گوشی شما هستند و بدون اینترنت کار می‌کنند.</p></details>
     <details><summary>کدام ارمنی آموزش داده می‌شود؟</summary><p>ارمنی شرقی، زبان رسمی ارمنستان و ایروان، با املای رسمی امروز.</p></details>
     <details><summary>چه اطلاعاتی از من ثبت می‌شود؟</summary><p>برای جلوگیری از سوءاستفاده از کدها، هنگام فعال‌سازی فقط مدل دستگاه، نوع سیستم‌عامل، آی‌پی و کشور تقریبی ثبت می‌شود. هیچ نام، شماره یا اطلاعات شخصی دیگری گرفته نمی‌شود.</p></details>
@@ -182,20 +182,20 @@ footer img{width:44px;filter:var(--logo)}
 </div>
 <script>
 /* Sales settings: fill these in to show the price and contact buttons. */
-var SHOP = { price: '', telegram: '', whatsapp: '', phone: '' };
+var SHOP = { price: '۹٬۰۰۰ درام', telegram: '', whatsapp: '37443805557', phone: '' };
 
 (function(){
   var p=document.getElementById('price'), c=document.getElementById('contact'), h='';
   if(SHOP.price)p.textContent=SHOP.price;else p.remove();
   if(SHOP.telegram)h+='<a class="btn pri" href="https://t.me/'+encodeURIComponent(SHOP.telegram)+'">خرید از تلگرام</a>';
-  if(SHOP.whatsapp)h+='<a class="btn pri" href="https://wa.me/'+encodeURIComponent(SHOP.whatsapp)+'">خرید از واتس‌اپ</a>';
+  if(SHOP.whatsapp)h+='<a class="btn pri" href="https://wa.me/'+encodeURIComponent(SHOP.whatsapp)+'?text='+encodeURIComponent('سلام، می‌خواهم کد فعال‌سازی آموزش ارمنی گروه شیردال را بخرم.')+'" target="_blank" rel="noopener">خرید از واتس‌اپ</a><span style="color:var(--soft);font-size:14px;align-self:center" dir="ltr">+374 43 805557</span>';
   if(SHOP.phone)h+='<a class="btn sec" href="tel:'+encodeURIComponent(SHOP.phone)+'">تماس تلفنی</a>';
   c.innerHTML=h||'<p style="color:var(--soft)">راه‌های خرید به‌زودی اینجا قرار می‌گیرد.</p>';
   var tabs=document.querySelectorAll('[role=tab]');
   tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(x){x.setAttribute('aria-selected',x===t);document.getElementById(x.dataset.p).hidden=x!==t})})});
   var ua=navigator.userAgent;
   if(/iPhone|iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))tabs[2].click();
-  if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){if(!/\/app\/$/.test(r.scope))r.unregister()})});
+  if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){if(!/\/app\/$/.test(r.scope))r.unregister()})}).catch(function(){});
 })();
 </script>
 </body>
