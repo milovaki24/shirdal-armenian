@@ -12,6 +12,75 @@
 <meta name="apple-mobile-web-app-title" content="ارمنی شیردال">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
+<script>/* ===== Install helper: one-tap install on Android (Chrome), guided steps on iPhone ===== */
+(function(){
+  if(location.hostname==='app.shirdal.local')return;               /* inside the Android app */
+  var ua=navigator.userAgent||'';
+  var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;
+  if(standalone)return;                                             /* already opened from the icon */
+  var isIOS=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+  var isAndroid=/Android/.test(ua);
+  if(!isIOS&&!isAndroid)return;                                     /* computers: no banner */
+  var inApp=/; wv\)|FBAN|FBAV|Instagram|Telegram|WhatsApp|Line\/|Snapchat|TikTok|GSA\//.test(ua);
+  var isSafari=isIOS&&/Safari\//.test(ua)&&!/CriOS|FxiOS|EdgiOS|OPiOS|YaBrowser|GSA\/|Instagram|FBAN|FBAV|Telegram/.test(ua);
+  var force=/[?&#]install/.test(location.href);
+  var DKEY='shirdal-install-hide', bip=null, done=false, waited=false, el=null;
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  var hidden=!force&&Number(get(DKEY)||0)>Date.now();
+  addEventListener('beforeinstallprompt',function(e){e.preventDefault();bip=e;render()});
+  addEventListener('appinstalled',function(){done=true;bip=null;render()});
+  var WA='https://wa.me/37443805557?text='+encodeURIComponent('سلام، برای نصب برنامه آموزش ارمنی شیردال کمک می‌خواهم.');
+  var SHARE='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-4px" aria-label="اشتراک‌گذاری"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>';
+  var PLUS='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-4px" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg>';
+  function chromeIntent(){var u=location.host+location.pathname+'?install=1';
+    return 'intent://'+u+'#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url='+encodeURIComponent('https://'+u)+';end'}
+  function css(){if(document.getElementById('ih-css'))return;var s=document.createElement('style');s.id='ih-css';
+    s.textContent='#ih{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:50;max-width:520px;margin:0 auto;'+
+    'background:var(--surface,#fbf7f4);color:var(--ink,#2a2220);border:1.5px solid var(--accent,#c45f1c);border-radius:18px;padding:14px 16px 14px 44px;'+
+    'box-shadow:0 10px 30px rgba(0,0,0,.18);font:15px/1.7 Vazirmatn,Tahoma,sans-serif;direction:rtl}'+
+    '#ih b.t{display:block;font-size:16px;font-weight:800;margin-bottom:2px}#ih p{margin:0;color:var(--soft,#6c5d57)}#ih ol{margin:6px 0 0;padding-inline-start:20px}'+
+    '#ih .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}#ih .b{display:inline-flex;align-items:center;justify-content:center;font:700 15px Vazirmatn,Tahoma,sans-serif;'+
+    'padding:11px 18px;border-radius:12px;border:1.5px solid var(--accent,#c45f1c);background:var(--accent,#c45f1c);color:var(--accent-ink,#fff);text-decoration:none;cursor:pointer}'+
+    '#ih .b.s{background:transparent;color:var(--accent,#c45f1c)}#ih .x{position:absolute;top:8px;left:8px;width:32px;height:32px;border:0;border-radius:10px;'+
+    'background:transparent;color:var(--soft,#6c5d57);font-size:22px;line-height:1;cursor:pointer}#ih .en{direction:ltr;unicode-bidi:isolate;font-weight:700}'+
+    'body.ih-on{padding-bottom:190px}';document.head.appendChild(s)}
+  function content(){
+    if(done)return '<b class="t">نصب شد ✓</b><p>برنامه را از آیکون «ارمنی شیردال» روی صفحه گوشی باز کنید و کد را همان‌جا وارد کنید.</p>';
+    if(isAndroid){
+      if(bip)return '<b class="t">برنامه را روی گوشی نصب کنید</b><p>با یک لمس، بدون هیچ تنظیمی. آیکون «ارمنی شیردال» روی صفحه گوشی اضافه می‌شود.</p>'+
+        '<div class="row"><button class="b" data-ih="go">نصب برنامه</button></div>';
+      if(!waited)return '';
+      if(inApp)return '<b class="t">برای نصب، صفحه را در کروم باز کنید</b><p>این صفحه داخل یک برنامه دیگر (مثل واتس‌اپ یا تلگرام) باز شده است. در کروم با یک لمس نصب می‌شود.</p>'+
+        '<div class="row"><a class="b" href="'+chromeIntent()+'">باز کردن در کروم</a></div>';
+      return '<b class="t">برنامه را روی گوشی نصب کنید</b><p>از منوی <b>⋮</b> بالای مرورگر، گزینه <b>«نصب برنامه»</b> یا <span class="en">Install app</span> را بزنید. اگر قبلاً نصب کرده‌اید، از آیکون «ارمنی شیردال» وارد شوید.</p>'+
+        '<div class="row"><a class="b s" href="'+chromeIntent()+'">باز کردن در کروم</a><a class="b s" href="'+WA+'" target="_blank" rel="noopener">کمک در واتس‌اپ</a></div>';
+    }
+    if(isSafari)return '<b class="t">برنامه را روی آیفون نصب کنید</b><ol><li>دکمه اشتراک‌گذاری '+SHARE+' را پایین صفحه بزنید.</li>'+
+      '<li>گزینه <b>«افزودن به صفحه اصلی»</b> '+PLUS+' یا <span class="en">Add to Home Screen</span> را بزنید.</li><li>از آیکون «ارمنی شیردال» وارد شوید و کد را آنجا وارد کنید.</li></ol>';
+    return '<b class="t">برای نصب، صفحه را در سافاری باز کنید</b><p>نصب روی آیفون فقط از سافاری ممکن است. لینک را کپی کنید و در سافاری باز کنید.</p>'+
+      '<div class="row"><button class="b" data-ih="copy">کپی لینک</button></div>';
+  }
+  function onScreen(){var a=document.getElementById('app');return !!(a&&(a.querySelector('#lic-code')||a.querySelector('.hero')))}
+  function render(){
+    if(!document.body)return;
+    var h=hidden?'':content(), show=!!h&&onScreen();
+    if(!show){if(el){el.remove();el=null}document.body.classList.remove('ih-on');return}
+    css();
+    if(!el){el=document.createElement('div');el.id='ih';el.setAttribute('role','region');el.setAttribute('aria-label','نصب برنامه');document.body.appendChild(el)}
+    el.innerHTML='<button class="x" data-ih="x" aria-label="بستن">×</button>'+h;document.body.classList.add('ih-on');
+  }
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-ih]');if(!b)return;var a=b.getAttribute('data-ih');
+    if(a==='x'){hidden=true;set(DKEY,String(Date.now()+3*864e5));render()}
+    else if(a==='go'&&bip){var p=bip;bip=null;p.prompt();(p.userChoice||Promise.resolve({})).then(function(r){if(r&&r.outcome==='accepted')done=true;render()})}
+    else if(a==='copy'){var u='https://'+location.host+location.pathname;
+      (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){b.textContent='کپی شد ✓'},function(){prompt('لینک را کپی کنید:',u)})}
+  });
+  function boot(){render();setTimeout(function(){waited=true;render()},2500);
+    var a=document.getElementById('app');if(a&&window.MutationObserver)new MutationObserver(render).observe(a,{childList:true})}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
 </head>
 <body style="margin:0">
 <title>آموزش ارمنی گروه شیردال</title>

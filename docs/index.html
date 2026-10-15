@@ -64,6 +64,38 @@ details p{color:var(--soft);margin-top:8px}
 .buy .contact{display:flex;gap:10px;flex-wrap:wrap}
 footer{padding:30px 0 50px;color:var(--soft);font-size:13px;display:flex;align-items:center;gap:12px;justify-content:center}
 footer img{width:44px;filter:var(--logo)}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:6px 0 16px}
+.shot{display:grid;gap:8px;justify-items:center;text-align:center;font-size:14px;color:var(--soft)}
+.shot b{color:var(--ink)}
+.ph{width:150px;height:250px;border-radius:24px;border:6px solid #2a2220;background:#f4f1ef;position:relative;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.12);font:11px/1.45 Vazirmatn,Tahoma,sans-serif;color:#2a2220;direction:rtl}
+.ph .bar{height:22px;background:#e7e2de;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-size:13px;direction:ltr;color:#555}
+.ph .pg{padding:10px;display:grid;gap:7px}
+.ph .ln{height:6px;border-radius:3px;background:#ddd5cf}
+.ph .ln.s{width:60%}
+.ph .ob{background:#c45f1c;color:#fff;border-radius:8px;padding:6px;text-align:center;font-weight:700}
+.ph .dim{position:absolute;inset:0;background:rgba(0,0,0,.38)}
+.ph .dlg{position:absolute;left:8px;right:8px;bottom:12px;background:#fff;border-radius:14px;padding:10px;display:grid;gap:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.ph .dlg.mid{bottom:auto;top:50%;transform:translateY(-50%)}
+.ph .dlg .en{direction:ltr;text-align:left}
+.ph .dlg .ttl{font-weight:800}
+.ph .acts{display:flex;gap:6px;justify-content:flex-end;direction:ltr}
+.ph .acts span{padding:3px 7px;border-radius:7px;color:#1a73e8;font-weight:700}
+.ph img.ic{width:34px;height:34px;border-radius:9px}
+.ph .row{display:flex;align-items:center;gap:7px}
+.ph .tg{width:26px;height:14px;border-radius:7px;background:#1a73e8;position:relative;margin-inline-start:auto}
+.ph .tg::after{content:"";position:absolute;right:2px;top:2px;width:10px;height:10px;border-radius:50%;background:#fff}
+.ph .home{position:absolute;inset:22px 0 0;background:linear-gradient(160deg,#9bb3c9,#5d7f9e);display:grid;grid-template-columns:repeat(3,1fr);align-content:start;gap:12px;padding:14px 10px}
+.ph .home i{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.35);justify-self:center}
+.ph .home div{display:grid;justify-items:center;gap:2px;color:#fff;font-size:9px}
+.ph .sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:14px 14px 0 0;padding:8px 10px;display:grid;gap:4px;direction:ltr;text-align:left}
+.ph .sheet div{padding:5px 6px;border-radius:7px;background:#f2f2f4}
+.ph b,.ph .ttl{color:#2a2220}
+@media (prefers-color-scheme:dark){.ph{border-color:#6c5d57}}
+.hl{outline:3px solid #e8382f;outline-offset:2px;border-radius:8px;animation:hl 1.4s ease-in-out infinite}
+@keyframes hl{50%{outline-color:rgba(232,56,47,.25)}}
+@media (prefers-reduced-motion:reduce){.hl{animation:none}}
+.rec{display:inline-block;font-size:12px;font-weight:800;background:var(--accent);color:var(--accent-ink);border-radius:8px;padding:1px 8px;margin-inline-start:6px;vertical-align:2px}
+.bigcta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:4px 0 14px}
 @media (max-width:760px){
   .hero{grid-template-columns:1fr;gap:28px;padding-top:8px}
   .stones{max-width:360px}
@@ -85,7 +117,7 @@ footer img{width:44px;filter:var(--logo)}
       <p class="lead">دوره کامل خواندن، نوشتن و صحبت به ارمنی شرقی برای فارسی‌زبانان؛ با صدای طبیعی، تمرین دست‌خط و مرور هوشمند. بعد از فعال‌سازی، بدون اینترنت هم کار می‌کند.</p>
       <div class="cta">
         <a class="btn pri" href="#buy">خرید کد فعال‌سازی</a>
-        <a class="btn sec" href="app/">باز کردن برنامه</a>
+        <a class="btn sec" href="app/?install=1">نصب و باز کردن برنامه</a>
       </div>
     </div>
     <div class="stones" aria-hidden="true">
@@ -125,41 +157,49 @@ footer img{width:44px;filter:var(--logo)}
 
   <section id="install">
     <h2>راهنمای نصب</h2>
-    <p class="intro">نوع گوشی خود را انتخاب کنید.</p>
+    <p class="intro">نوع گوشی خود را انتخاب کنید. روش اول اندروید هیچ تنظیمی لازم ندارد و برای بیشتر کاربران ساده‌ترین راه است.</p>
     <div class="tabs" role="tablist">
-      <button role="tab" aria-selected="true" data-p="p1">اندروید (فایل نصبی)</button>
-      <button role="tab" aria-selected="false" data-p="p2">اندروید (کروم)</button>
+      <button role="tab" aria-selected="true" data-p="p1">اندروید <span class="rec">پیشنهادی</span></button>
       <button role="tab" aria-selected="false" data-p="p3">آیفون و آیپد</button>
+      <button role="tab" aria-selected="false" data-p="p2">اندروید با فایل نصبی</button>
     </div>
     <div class="card panel" id="p1">
-      <ol>
-        <li>فایل نصبی را دانلود کنید: <a href="shirdal-armenian.apk" download>دانلود برنامه اندروید</a></li>
-        <li>فایل دانلودشده را باز کنید. اگر گوشی اجازه خواست، گزینه «اجازه نصب از این منبع» را روشن کنید.</li>
-        <li>نصب را بزنید و برنامه «ارمنی شیردال» را باز کنید.</li>
-        <li>کد فعال‌سازی را وارد کنید.</li>
-      </ol>
-      <p class="note">این فایل با امضای اختصاصی گروه شیردال منتشر شده است. چون از گوگل‌پلی نیست، اندروید یک بار هشدار نصب از منبع ناشناس نشان می‌دهد.</p>
-    </div>
-    <div class="card panel" id="p2" hidden>
-      <ol>
-        <li>این صفحه را در مرورگر کروم باز کنید و روی <a href="app/">باز کردن برنامه</a> بزنید.</li>
-        <li>از منوی سه‌نقطه بالای کروم، «نصب برنامه» یا «افزودن به صفحه اصلی» را انتخاب کنید.</li>
-        <li>آیکون شیردال روی صفحه گوشی اضافه می‌شود؛ از همان آیکون وارد شوید و کد را وارد کنید.</li>
-      </ol>
+      <div class="bigcta"><a class="btn pri" href="app/?install=1">نصب برنامه روی اندروید</a><span style="color:var(--soft);font-size:14px">کمتر از یک دقیقه، بدون تغییر تنظیمات</span></div>
+      <div class="shots">
+        <div class="shot"><div class="ph"><div class="bar">⋮</div><div class="pg"><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div>
+          <div class="dlg"><b>برنامه را روی گوشی نصب کنید</b><div class="ob hl">نصب برنامه</div></div></div><span><b>۱.</b> روی دکمه بالا بزنید؛ در صفحه برنامه، دکمه نارنجی «نصب برنامه» را بزنید.</span></div>
+        <div class="shot"><div class="ph"><div class="bar">⋮</div><div class="pg"><div class="ln"></div><div class="ln s"></div></div><div class="dim"></div>
+          <div class="dlg"><div class="row"><img class="ic" src="icon-192.png" alt=""><b>نصب برنامه؟<br>ارمنی شیردال</b></div><div class="acts"><span>Cancel</span><span class="hl">Install</span></div></div></div><span><b>۲.</b> در پنجره‌ای که باز می‌شود «نصب» یا <span dir="ltr">Install</span> را بزنید.</span></div>
+        <div class="shot"><div class="ph"><div class="bar"></div><div class="home"><div><i></i></div><div><i></i></div><div><i></i></div><div><i></i></div><div class="hl" style="padding:2px"><img class="ic" src="icon-192.png" alt="">ارمنی شیردال</div><div><i></i></div></div></div><span><b>۳.</b> آیکون «ارمنی شیردال» روی صفحه گوشی می‌آید. از همان آیکون وارد شوید و کد را بزنید.</span></div>
+      </div>
+      <p class="note">اگر لینک را داخل واتس‌اپ یا تلگرام باز کرده‌اید، برنامه خودش دکمه «باز کردن در کروم» را نشان می‌دهد؛ آن را بزنید و بعد «نصب برنامه» را. اگر دکمه نصب دیده نشد، از منوی <b>⋮</b> کروم گزینه «نصب برنامه» را انتخاب کنید.</p>
     </div>
     <div class="card panel" id="p3" hidden>
-      <ol>
-        <li>این صفحه را حتماً در <b>سافاری</b> باز کنید و روی <a href="app/">باز کردن برنامه</a> بزنید.</li>
-        <li>دکمه اشتراک‌گذاری (مربع با فلش رو به بالا) را بزنید.</li>
-        <li>«افزودن به صفحه اصلی» یا <span dir="ltr">Add to Home Screen</span> را انتخاب کنید.</li>
-        <li>از آیکون شیردال روی صفحه گوشی وارد شوید و کد را وارد کنید.</li>
-      </ol>
-      <p class="note">کد را حتماً بعد از نصب و از داخل آیکون وارد کنید، نه در خود سافاری؛ آیفون این دو را دو دستگاه جدا حساب می‌کند.</p>
+      <div class="bigcta"><a class="btn pri" href="app/?install=1">باز کردن برنامه در سافاری</a></div>
+      <div class="shots">
+        <div class="shot"><div class="ph"><div class="bar"></div><div class="pg"><div class="ln"></div><div class="ln s"></div><div class="ln"></div></div>
+          <div style="position:absolute;bottom:0;left:0;right:0;height:30px;background:#eee;display:flex;justify-content:center;align-items:center"><span class="hl" style="padding:2px 4px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></span></div></div><span><b>۱.</b> صفحه را در <b>سافاری</b> باز کنید و دکمه اشتراک‌گذاری پایین صفحه را بزنید.</span></div>
+        <div class="shot"><div class="ph"><div class="bar"></div><div class="dim"></div><div class="sheet"><div>Copy</div><div>Add to Favorites</div><div class="hl">Add to Home Screen ⊞</div><div>Find on Page</div></div></div><span><b>۲.</b> گزینه <span dir="ltr">Add to Home Screen</span> یا «افزودن به صفحه اصلی» را بزنید، بعد <span dir="ltr">Add</span>.</span></div>
+        <div class="shot"><div class="ph"><div class="bar"></div><div class="home"><div><i></i></div><div><i></i></div><div class="hl" style="padding:2px"><img class="ic" src="icon-192.png" alt="">ارمنی شیردال</div><div><i></i></div></div></div><span><b>۳.</b> از آیکون روی صفحه گوشی وارد شوید و کد را همان‌جا وارد کنید.</span></div>
+      </div>
+      <p class="note">کد را بعد از نصب و از داخل آیکون وارد کنید، نه در خود سافاری.</p>
+    </div>
+    <div class="card panel" id="p2" hidden>
+      <p style="margin-bottom:10px">این روش برای کسانی است که برنامه اندرویدی جداگانه می‌خواهند. اندروید چند بار هشدار می‌دهد چون فایل از گوگل‌پلی نیست؛ این هشدارها عادی‌اند.</p>
+      <div class="bigcta"><a class="btn sec" href="shirdal-armenian.apk" download>دانلود فایل نصبی اندروید</a></div>
+      <div class="shots">
+        <div class="shot"><div class="ph"><div class="bar"></div><div class="dim"></div><div class="dlg mid"><span class="en ttl">For your security, your phone is not allowed to install unknown apps from this source.</span><div class="acts"><span>Cancel</span><span class="hl">Settings</span></div></div></div><span><b>۱.</b> فایل را باز کنید. اگر این پیام آمد، <span dir="ltr">Settings</span> (تنظیمات) را بزنید.</span></div>
+        <div class="shot"><div class="ph"><div class="bar">←</div><div class="pg"><b class="en" style="direction:ltr;text-align:left">Install unknown apps</b><div class="row hl" style="padding:4px;direction:ltr"><span>Allow from this source</span><span class="tg"></span></div></div></div><span><b>۲.</b> گزینه <span dir="ltr">Allow from this source</span> (اجازه از این منبع) را روشن کنید و برگردید.</span></div>
+        <div class="shot"><div class="ph"><div class="bar"></div><div class="dim"></div><div class="dlg mid"><span class="en ttl">Unsafe app blocked</span><span class="en" style="font-size:10px">Play Protect doesn't recognise this app's developer.</span><div class="acts"><span class="hl">More details ⌄</span></div><div class="acts"><span class="hl">Install anyway</span></div></div></div><span><b>۳.</b> اگر پیام <span dir="ltr">Play Protect</span> آمد، <span dir="ltr">More details</span> و بعد <span dir="ltr">Install anyway</span> را بزنید.</span></div>
+        <div class="shot"><div class="ph"><div class="bar"></div><div class="dim"></div><div class="dlg"><div class="row"><img class="ic" src="icon-192.png" alt=""><b>ارمنی شیردال</b></div><span class="en">Do you want to install this app?</span><div class="acts"><span>Cancel</span><span class="hl">Install</span></div></div></div><span><b>۴.</b> <span dir="ltr">Install</span> را بزنید، برنامه را باز کنید و کد را وارد کنید.</span></div>
+      </div>
+      <p class="note">متن پیام‌ها بسته به زبان و مدل گوشی کمی فرق دارد، ولی ترتیب همین است. اگر جایی گیر کردید از روش اول (بدون تنظیمات) استفاده کنید یا در <a href="https://wa.me/37443805557?text=%D8%B3%D9%84%D8%A7%D9%85%D8%8C%20%D8%A8%D8%B1%D8%A7%DB%8C%20%D9%86%D8%B5%D8%A8%20%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87%20%DA%A9%D9%85%DA%A9%20%D9%85%DB%8C%E2%80%8C%D8%AE%D9%88%D8%A7%D9%87%D9%85." target="_blank" rel="noopener">واتس‌اپ</a> بپرسید.</p>
     </div>
   </section>
 
   <section id="faq">
     <h2>پرسش‌های رایج</h2>
+    <details><summary>برنامه روی گوشی نصب نمی‌شود، چه کنم؟</summary><p>روی اندروید از دکمه «نصب برنامه روی اندروید» در بخش راهنمای نصب استفاده کنید؛ این روش هیچ تنظیمی لازم ندارد. اگر لینک را در واتس‌اپ یا تلگرام باز کرده‌اید، اول آن را در کروم باز کنید. روی آیفون حتماً از سافاری نصب کنید. اگر باز هم مشکل داشتید، به واتس‌اپ <span dir="ltr">+374 43 805557</span> پیام دهید.</p></details>
     <details><summary>هر کد روی چند دستگاه کار می‌کند؟</summary><p>هر کد فقط روی یک دستگاه فعال می‌شود. برای هر گوشی یا تبلت یک کد جدا لازم است.</p></details>
     <details><summary>اگر گوشی‌ام را عوض کنم یا برنامه را پاک کنم چه می‌شود؟</summary><p>به واتس‌اپ گروه شیردال <span dir="ltr">+374 43 805557</span> پیام دهید تا کد شما برای دستگاه جدید آزاد شود. کد روی دستگاه قبلی غیرفعال می‌شود.</p></details>
     <details><summary>آیا اینترنت لازم است؟</summary><p>فقط برای فعال‌سازی بار اول. بعد از آن درس‌ها و صداها روی گوشی شما هستند و بدون اینترنت کار می‌کنند.</p></details>
@@ -194,7 +234,7 @@ var SHOP = { price: '۹٬۰۰۰ درام', telegram: '', whatsapp: '37443805557'
   var tabs=document.querySelectorAll('[role=tab]');
   tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(x){x.setAttribute('aria-selected',x===t);document.getElementById(x.dataset.p).hidden=x!==t})})});
   var ua=navigator.userAgent;
-  if(/iPhone|iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))tabs[2].click();
+  if(/iPhone|iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1))tabs[1].click();
   if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){if(!/\/app\/$/.test(r.scope))r.unregister()})}).catch(function(){});
 })();
 </script>
