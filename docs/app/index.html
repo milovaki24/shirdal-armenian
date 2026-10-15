@@ -984,7 +984,8 @@ async function padCheck(){
   const shape=hwShape(hwGrid(hwStrokeFrame(PAD.strokes,1)));
   if(!shape)return {empty:true};
   const rank=hwRank(shape,PAD.upper?UP_SET:LOW_SET);
-  return {ok:rank[0].c===PAD.ch&&rank[0].f>=0.75,best:rank[0].c,fit:rank[0].f};
+  const tg=rank.find(x=>x.c===PAD.ch);/* near-identical letters (e.g. ձ/ծ): accept the target when it scores within 0.02 of the best */
+  return {ok:!!tg&&tg.f>=0.75&&rank[0].score-tg.score<=0.02,best:rank[0].c,fit:tg?tg.f:0};
 }
 function hwFailText(res){
   if(res.empty)return 'هنوز چیزی ننوشتی. حرف را روی صفحه بنویس و بعد «بررسی» را بزن.';
@@ -1132,6 +1133,7 @@ home();
       if(j&&j.ok===false&&(j.err==='released'||j.err==='used'||j.err==='invalid')){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}}catch(e){}
   }
   (async function(){
+    try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(function(){})}catch(e){}
     var saved=ls(KEY);
     if(saved){try{var sv=JSON.parse(saved);await start(sv.key);ping(sv.code);return}catch(e){}}
     screen();
