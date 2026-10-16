@@ -61,6 +61,15 @@ summary{cursor:pointer;font-weight:600}
 details p{color:var(--soft);margin-top:8px}
 .buy{background:var(--surface);border:1.5px solid var(--accent);border-radius:22px;padding:28px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
 .buy .price{font-size:30px;font-weight:800;color:var(--accent)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:6px}
+.pl{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:22px;display:grid;gap:10px;align-content:start;position:relative}
+.pl.best{border-color:var(--accent);box-shadow:0 8px 24px rgba(196,95,28,.15)}
+.pl .tag{position:absolute;top:-12px;right:18px;background:var(--accent);color:var(--accent-ink);font-size:13px;font-weight:800;border-radius:9px;padding:2px 10px}
+.pl h3{font-size:19px;font-weight:800}
+.pl .pr{font-size:30px;font-weight:800;color:var(--accent);line-height:1.2}
+.pl .pr small{font-size:15px;color:var(--soft);font-weight:600}
+.pl ul{margin:0;padding:0;list-style:none;display:grid;gap:4px;color:var(--soft);font-size:15px}
+.pl li::before{content:"✓ ";color:var(--accent);font-weight:800}
 .buy .contact{display:flex;gap:10px;flex-wrap:wrap}
 footer{padding:30px 0 50px;color:var(--soft);font-size:13px;display:flex;align-items:center;gap:12px;justify-content:center}
 footer img{width:44px;filter:var(--logo)}
@@ -117,7 +126,7 @@ footer img{width:44px;filter:var(--logo)}
       <p class="lead">دوره کامل خواندن، نوشتن و صحبت به ارمنی شرقی برای فارسی‌زبانان؛ با صدای طبیعی، تمرین دست‌خط و مرور هوشمند. بعد از فعال‌سازی، بدون اینترنت هم کار می‌کند.</p>
       <div class="cta">
         <a class="btn pri" href="app/?trial=1&amp;install=1">امتحان رایگان</a>
-        <a class="btn sec" href="#buy">خرید کد فعال‌سازی</a>
+        <a class="btn sec" href="#buy">خرید اشتراک</a>
       </div>
     </div>
     <div class="stones" aria-hidden="true">
@@ -160,7 +169,7 @@ footer img{width:44px;filter:var(--logo)}
     <h2>چطور شروع کنید</h2>
     <div class="steps">
       <div class="card"><h3>رایگان امتحان کنید</h3><p>بدون کد وارد برنامه شوید و سه درس اول را بروید تا با محیط آشنا شوید.</p></div>
-      <div class="card"><h3>کد را بخرید</h3><p>یک کد فعال‌سازی به شکل <span dir="ltr" style="white-space:nowrap">SHRD-XXXX-XXXX-XXXX</span> دریافت می‌کنید.</p></div>
+      <div class="card"><h3>کد را بخرید</h3><p>یکی از اشتراک‌های ۱ ماهه، ۳ ماهه یا نامحدود را انتخاب کنید و کد فعال‌سازی به شکل <span dir="ltr" style="white-space:nowrap">SHRD-XXXX-XXXX-XXXX</span> دریافت می‌کنید.</p></div>
       <div class="card"><h3>برنامه را نصب کنید</h3><p>روی اندروید یا آیفون، طبق راهنمای پایین؛ کمتر از یک دقیقه.</p></div>
       <div class="card"><h3>کد را وارد کنید</h3><p>بار اول با اینترنت فعال کنید؛ از آن به بعد برنامه بدون اینترنت هم کار می‌کند.</p></div>
     </div>
@@ -212,6 +221,7 @@ footer img{width:44px;filter:var(--logo)}
     <h2>پرسش‌های رایج</h2>
     <details><summary>آیا قبل از خرید می‌توانم برنامه را ببینم؟</summary><p>بله. روی «امتحان رایگان» بزنید؛ سه درس اول و جدول کامل الفبا بدون کد باز است. بعد از خرید، کد را داخل همان برنامه وارد کنید تا بقیه درس‌ها باز شود و پیشرفت شما حفظ بماند.</p></details>
     <details><summary>برنامه روی گوشی نصب نمی‌شود، چه کنم؟</summary><p>روی اندروید از دکمه «نصب برنامه روی اندروید» در بخش راهنمای نصب استفاده کنید؛ این روش هیچ تنظیمی لازم ندارد. اگر لینک را در واتس‌اپ یا تلگرام باز کرده‌اید، اول آن را در کروم باز کنید. روی آیفون حتماً از سافاری نصب کنید. اگر باز هم مشکل داشتید، به واتس‌اپ <span dir="ltr">+374 43 805557</span> پیام دهید.</p></details>
+    <details><summary>وقتی اشتراک تمام شود چه می‌شود؟</summary><p>چند روز قبل از پایان، برنامه یادآوری می‌کند. بعد از پایان، درس‌های رایگان باز می‌مانند و همه پیشرفت شما حفظ می‌شود. با تمدید از واتس‌اپ یا وارد کردن کد تازه، دوره از همان‌جا ادامه پیدا می‌کند.</p></details>
     <details><summary>هر کد روی چند دستگاه کار می‌کند؟</summary><p>هر کد فقط روی یک دستگاه فعال می‌شود. برای هر گوشی یا تبلت یک کد جدا لازم است.</p></details>
     <details><summary>اگر گوشی‌ام را عوض کنم یا برنامه را پاک کنم چه می‌شود؟</summary><p>به واتس‌اپ گروه شیردال <span dir="ltr">+374 43 805557</span> پیام دهید تا کد شما برای دستگاه جدید آزاد شود. کد روی دستگاه قبلی غیرفعال می‌شود.</p></details>
     <details><summary>آیا اینترنت لازم است؟</summary><p>فقط برای فعال‌سازی بار اول. بعد از آن درس‌ها و صداها روی گوشی شما هستند و بدون اینترنت کار می‌کنند.</p></details>
@@ -220,29 +230,26 @@ footer img{width:44px;filter:var(--logo)}
   </section>
 
   <section id="buy">
-    <div class="buy">
-      <div>
-        <h2>خرید کد فعال‌سازی</h2>
-        <p class="intro" style="margin:6px 0 0">دسترسی کامل و دائمی به همه درس‌ها، روی یک دستگاه. هنوز مطمئن نیستید؟ <a href="app/?trial=1&amp;install=1">اول رایگان امتحان کنید</a>.</p>
-        <p class="price" id="price"></p>
-      </div>
-      <div class="contact" id="contact"></div>
-    </div>
+    <h2>اشتراک خود را انتخاب کنید</h2>
+    <p class="intro">همه بسته‌ها به همه ۶۳ درس و ۹۳۰ صدای طبیعی دسترسی کامل می‌دهند. اعتبار از روز فعال‌سازی حساب می‌شود و هر کد روی یک گوشی فعال می‌شود. هنوز مطمئن نیستید؟ <a href="app/?trial=1&amp;install=1">اول رایگان امتحان کنید</a>.</p>
+    <div class="plans" id="plans"></div>
+    <p class="intro" style="margin-top:14px;font-size:14px">خرید و پشتیبانی از واتس‌اپ <span dir="ltr" style="white-space:nowrap">+374 43 805557</span>. بعد از پرداخت، کد فعال‌سازی برایتان فرستاده می‌شود.</p>
   </section>
 
   <footer><img src="logo.png" alt=""><span>© گروه شیردال · ایروان</span></footer>
 </div>
 <script>
-/* Sales settings: fill these in to show the price and contact buttons. */
-var SHOP = { price: '۹٬۰۰۰ درام', telegram: '', whatsapp: '37443805557', phone: '' };
+/* Sales settings: plans and contact. */
+var SHOP = { whatsapp: '37443805557', plans: [
+  { n: 'اشتراک ۱ ماهه', p: '۷٬۰۰۰', d: '۳۰ روز', f: ['دسترسی کامل به همه درس‌ها', 'مناسب برای شروع و آشنایی جدی'] },
+  { n: 'اشتراک ۳ ماهه', p: '۱۵٬۰۰۰', d: '۹۰ روز', tag: 'به‌صرفه‌ترین', best: true, f: ['ماهی ۵٬۰۰۰ درام', 'زمان کافی برای تمام کردن دوره'] },
+  { n: 'اشتراک نامحدود', p: '۴۰٬۰۰۰', d: 'برای همیشه', f: ['یک‌بار پرداخت، بدون تمدید', 'همه به‌روزرسانی‌های آینده'] } ] };
 
 (function(){
-  var p=document.getElementById('price'), c=document.getElementById('contact'), h='';
-  if(SHOP.price)p.textContent=SHOP.price;else p.remove();
-  if(SHOP.telegram)h+='<a class="btn pri" href="https://t.me/'+encodeURIComponent(SHOP.telegram)+'">خرید از تلگرام</a>';
-  if(SHOP.whatsapp)h+='<a class="btn pri" href="https://wa.me/'+encodeURIComponent(SHOP.whatsapp)+'?text='+encodeURIComponent('سلام، می‌خواهم کد فعال‌سازی آموزش ارمنی گروه شیردال را بخرم.')+'" target="_blank" rel="noopener">خرید از واتس‌اپ</a><span style="color:var(--soft);font-size:14px;align-self:center" dir="ltr">+374 43 805557</span>';
-  if(SHOP.phone)h+='<a class="btn sec" href="tel:'+encodeURIComponent(SHOP.phone)+'">تماس تلفنی</a>';
-  c.innerHTML=h||'<p style="color:var(--soft)">راه‌های خرید به‌زودی اینجا قرار می‌گیرد.</p>';
+  var box=document.getElementById('plans');
+  box.innerHTML=SHOP.plans.map(function(pl){
+    var wa='https://wa.me/'+SHOP.whatsapp+'?text='+encodeURIComponent('سلام، می‌خواهم کد '+pl.n+' آموزش ارمنی شیردال ('+pl.p+' درام) را بخرم.');
+    return '<div class="pl'+(pl.best?' best':'')+'">'+(pl.tag?'<span class="tag">'+pl.tag+'</span>':'')+'<h3>'+pl.n+'</h3><div class="pr">'+pl.p+' <small>درام</small></div><div style="color:var(--soft);font-weight:600;margin-top:-6px">مدت: '+pl.d+'</div><ul>'+pl.f.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><a class="btn '+(pl.best?'pri':'sec')+'" href="'+wa+'" target="_blank" rel="noopener">خرید از واتس‌اپ</a></div>'}).join('');
   var tabs=document.querySelectorAll('[role=tab]');
   tabs.forEach(function(t){t.addEventListener('click',function(){tabs.forEach(function(x){x.setAttribute('aria-selected',x===t);document.getElementById(x.dataset.p).hidden=x!==t})})});
   var ua=navigator.userAgent;

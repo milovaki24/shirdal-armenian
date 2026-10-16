@@ -392,17 +392,26 @@ const PART=14;
 /* ---- Free trial: a few lessons open, the rest shown with a key and a purchase page ---- */
 const TRIAL=!!window.TRIAL_MODE, FREE=new Set(['g1','g2','p8']), TINFO=window.TRIAL_INFO||{};
 if(TRIAL){LESSONS.forEach(l=>{if(!FREE.has(l.id))l.paid=true});(window.TRIAL_LOCKED||[]).forEach(x=>LESSONS.push(Object.assign({paid:true},x)))}
-const BUY_WA='https://wa.me/37443805557?text='+encodeURIComponent('سلام، نسخه رایگان آموزش ارمنی شیردال را امتحان کردم و می‌خواهم کد فعال‌سازی را بخرم.');
+const PLANS=[{id:'1m',n:'۱ ماهه',p:'۷٬۰۰۰',d:'۳۰ روز دسترسی کامل'},{id:'3m',n:'۳ ماهه',p:'۱۵٬۰۰۰',d:'۹۰ روز؛ ماهی ۵٬۰۰۰ درام',tag:'به‌صرفه'},{id:'life',n:'نامحدود',p:'۴۰٬۰۰۰',d:'یک‌بار پرداخت، برای همیشه'}];
+const PLAN_NAME={'1m':'۱ ماهه','3m':'۳ ماهه','life':'نامحدود'}, LIC=window.LICENSE_INFO||null;
+function buyWa(pl){return 'https://wa.me/37443805557?text='+encodeURIComponent('سلام، می‌خواهم کد اشتراک '+pl.n+' آموزش ارمنی شیردال ('+pl.p+' درام) را بخرم.')}
+function plansHTML(){return `<div style="display:grid;gap:10px;width:100%;max-width:440px;margin:6px auto">${PLANS.map(pl=>`<a href="${buyWa(pl)}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:14px;border:1.5px solid ${pl.tag?'var(--accent)':'var(--line)'};background:var(--bg);color:var(--ink);text-decoration:none;text-align:right"><span><b style="font-size:17px">اشتراک ${pl.n}</b>${pl.tag?` <span style="font-size:12px;font-weight:800;background:var(--accent);color:var(--accent-ink,#fff);border-radius:8px;padding:1px 8px">${pl.tag}</span>`:''}<br><span class="muted" style="font-size:13px">${pl.d}</span></span><span style="white-space:nowrap;font-weight:800;color:var(--accent);font-size:18px">${pl.p} <span style="font-size:13px">درام</span></span></a>`).join('')}</div><p class="muted" style="font-size:13px">روی هر گزینه بزن تا سفارش در واتس‌اپ باز شود.</p>`}
+function daysLeft(exp){return Math.max(0,Math.ceil((exp-Date.now())/864e5))}
+function faDate(ms){try{return new Date(ms).toLocaleDateString('fa-IR')}catch(e){return ''}}
+function subLine(){if(TRIAL||!LIC||!LIC.plan)return '';return LIC.exp?`<span>اشتراک ${PLAN_NAME[LIC.plan]||''} <b>${fa(daysLeft(LIC.exp))} روز مانده</b></span>`:`<span>اشتراک <b>${PLAN_NAME[LIC.plan]||'نامحدود'}</b></span>`}
+function subWarn(){if(TRIAL||!LIC||!LIC.exp)return '';const d=daysLeft(LIC.exp);if(d>7)return '';
+  return `<section class="today" aria-label="تمدید اشتراک" style="border:1.5px solid var(--accent)"><h2>${d?`اشتراکت ${fa(d)} روز دیگر تمام می‌شود`:'اشتراکت امروز تمام می‌شود'}</h2><p class="muted">برای اینکه درس‌ها و مرورها قطع نشود، اشتراک را تمدید کن. پیشرفتت حفظ می‌ماند.</p><div class="today-actions"><button class="btn" data-buy>تمدید اشتراک</button><button class="ghost" data-havecode>کد جدید دارم</button></div></section>`}
+function expiredCard(){const E=window.LICENSE_EXPIRED;return `<section class="today" aria-label="اشتراک تمام شد" style="border:1.5px solid var(--accent)"><h2>اشتراک ${PLAN_NAME[E.plan]||''} تو تمام شد</h2><p class="muted">اعتبار کد در ${faDate(E.exp)} تمام شد. همه پیشرفتت محفوظ است و درس‌های رایگان باز مانده‌اند. با تمدید اشتراک، از همین‌جا ادامه بده.</p><div class="today-actions"><button class="btn" data-buy>تمدید اشتراک</button><button class="ghost" data-havecode>کد جدید دارم</button></div></section>`}
 function paidCount(){return LESSONS.filter(l=>l.paid).length}
-function trialCard(){const free=LESSONS.length-paidCount();
+function trialCard(){if(window.LICENSE_EXPIRED)return expiredCard();const free=LESSONS.length-paidCount();
   return `<section class="today" aria-label="نسخه رایگان" style="border:1.5px solid var(--accent)"><h2>نسخه رایگان: ${fa(free)} درس از ${fa(LESSONS.length)}</h2>
     <p class="muted">دو درس الفبا، درس سلام و احوال‌پرسی و جدول کامل الفبا با صدا و تمرین نوشتن، رایگان است. با خرید کد، ${fa(paidCount())} درس دیگر باز می‌شود و پیشرفتی که اینجا داری حفظ می‌ماند.</p>
     <div class="today-actions"><button class="btn" data-buy>دیدن نسخه کامل</button><button class="ghost" data-havecode>کد دارم</button></div></section>`}
-function paywall(i){R=null;const l=i!=null?LESSONS[i]:null,names=(TINFO.names||[]).slice(0,6).join('، ');
+function paywall(i){R=null;const l=i!=null?LESSONS[i]:null,names=(TINFO.names||(window.TOPICS||[]).map(t=>t.title)).slice(0,6).join('، ');
   const perk=t=>`<li style="display:flex;gap:8px"><span style="color:var(--accent);font-weight:800">✓</span><span>${t}</span></li>`;
   view(`<div class="bar"><button class="x" data-home aria-label="بازگشت">×</button></div>
     <article class="card result"><span class="kind">نسخه کامل</span>
-    <h2 style="font-size:24px;font-weight:800">${l?`«${esc(l.title)}» در نسخه کامل است`:'نسخه کامل آموزش ارمنی'}</h2>
+    <h2 style="font-size:24px;font-weight:800">${l?`«${esc(l.title)}» در نسخه کامل است`:(LIC||window.LICENSE_EXPIRED?'تمدید اشتراک':'نسخه کامل آموزش ارمنی')}</h2>
     <p class="muted" style="max-width:48ch">${S.xp?`تا اینجا ${fa(S.xp)} امتیاز گرفته‌ای و ${fa(lettersLearned())} حرف یاد گرفته‌ای. `:''}با خرید کد، دوره از همین‌جا ادامه پیدا می‌کند و پیشرفتت پاک نمی‌شود.</p>
     <ul style="list-style:none;margin:4px auto;padding:0;display:grid;gap:8px;text-align:right;max-width:44ch">
       ${perk(`همه ${fa(TINFO.lessons||LESSONS.length)} درس، از الفبا تا گفت‌وگوی روزمره`)}
@@ -412,8 +421,8 @@ function paywall(i){R=null;const l=i!=null?LESSONS[i]:null,names=(TINFO.names||[
       ${perk('مرور هوشمند که کلمه‌ها را درست پیش از فراموشی برمی‌گرداند')}
       ${perk('بعد از فعال‌سازی، بدون اینترنت')}
     </ul>
-    <p style="font-size:28px;font-weight:800;color:var(--accent);margin-top:6px">۹٬۰۰۰ درام <span class="muted" style="font-size:15px;font-weight:600">یک‌بار پرداخت، دسترسی دائمی</span></p>
-    <div class="actions" style="justify-content:center"><a class="btn" href="${BUY_WA}" target="_blank" rel="noopener">خرید از واتس‌اپ</a><button class="ghost" data-havecode>کد دارم، فعال کن</button></div>
+    ${plansHTML()}
+    <div class="actions" style="justify-content:center"><button class="ghost" data-havecode>کد دارم، فعال کن</button></div>
     <p class="muted" style="font-size:13px">خرید و پشتیبانی: واتس‌اپ <span dir="ltr" style="white-space:nowrap">+374 43 805557</span></p></article>`)}
 function lockedRooms(){return (window.TRIAL_ROOMS||[]).map(t=>`<button class="lesson locked" data-buy><span class="glyph hy">${esc(t.g)}</span><span><span class="t">${esc(t.title)}</span><span class="d">${fa(t.n)} جمله · نسخه کامل</span></span><span class="stars" aria-label="نسخه کامل">🔑</span></button>`).join('')}
 function buildTopicPart(t,i,n){
@@ -649,10 +658,10 @@ function home(){
   const open=unlockedIndex();
   let html=`<header class="hero"><img class="logo" src="${SHIRDAL_LOGO}" alt="لوگوی گروه شیردال"><div>
       <h1>آموزش ارمنی گروه شیردال</h1><p class="sub">ارمنی شرقی از صفر، برای فارسی‌زبانان. خواندن، نوشتن و اولین جمله‌ها.</p>
-      <div class="stats"><span>حرف‌های یادگرفته <b>${fa(lettersLearned())} از ${fa(39)}</b></span><span>امتیاز <b>${fa(S.xp)}</b></span><span>روزهای پیاپی <b>${fa(S.streak)}</b></span></div>
+      <div class="stats"><span>حرف‌های یادگرفته <b>${fa(lettersLearned())} از ${fa(39)}</b></span><span>امتیاز <b>${fa(S.xp)}</b></span><span>روزهای پیاپی <b>${fa(S.streak)}</b></span>${subLine()}</div>
     </div></header>`;
   const dxp=S.day&&S.day.d===today()?S.day.xp:0, pct=Math.min(100,Math.round(dxp/GOAL*100)), due=dueIds().length, weak=weakIds().length, ms=memStats();
-  if(TRIAL)html+=trialCard();
+  if(TRIAL)html+=trialCard();else html+=subWarn();
   html+=`<section class="today" aria-label="برنامه امروز"><div class="today-top"><div class="ring" style="--p:${pct}"><span>${fa(pct)}٪</span></div>
       <div><h2>هدف امروز: ${fa(GOAL)} امتیاز</h2><p class="muted">${dxp>=GOAL?'هدف امروز را زدی. فردا هم برگرد تا زنجیره روزهایت نشکند.':`${fa(dxp)} امتیاز گرفته‌ای. هر جواب درست ${fa(10)} امتیاز دارد.`}</p></div></div>
     <div class="memstats"><span>در حافظه <b>${fa(ms.total)}</b> مورد</span><span>محکم شده <b>${fa(ms.strong)}</b></span><span>مرور امروز <b>${fa(due)}</b></span></div>
@@ -1172,7 +1181,7 @@ home();
     var n=(pt[0]<<24|pt[1]<<16|pt[2]<<8|pt[3])>>>0, hdr=JSON.parse(new TextDecoder().decode(pt.subarray(4,4+n))), base=4+n, aud={};
     hdr.k.forEach(function(e){var bytes=pt.subarray(base+e[1],base+e[1]+e[2]),s='';for(var i=0;i<bytes.length;i+=0x8000)s+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));aud[e[0]]=btoa(s)});
     return {a:aud,t:hdr.t}}
-  async function start(k){var d=await unseal(k);window.HY_AUDIO=d.a;window.TOPICS=d.t;
+  async function start(k){var d=await unseal(k);window.HY_AUDIO=d.a;window.TOPICS=d.t;window.__appStarted=true;window.shirdalShowActivation=function(){screen()};
     var s=document.createElement('script');s.textContent=document.getElementById('app-src').textContent;document.body.appendChild(s)}
   function startTrial(){ls(TKEY,'1');var T=window.TRIAL_DATA||{};window.TRIAL_MODE=true;window.HY_AUDIO=T.a||{};window.TOPICS=[];
     window.TRIAL_LOCKED=T.l||[];window.TRIAL_ROOMS=T.r||[];window.TRIAL_INFO=T.i||{};window.__trialRunning=true;
@@ -1202,6 +1211,7 @@ home();
     used:'این کد قبلاً روی دستگاه دیگری فعال شده است. هر کد فقط برای یک دستگاه است؛ اگر گوشی‌ات را عوض کرده‌ای، به <a href="https://wa.me/37443805557?text='+encodeURIComponent('سلام، درباره کد فعال‌سازی آموزش ارمنی شیردال سؤال دارم.')+'" target="_blank" rel="noopener" style="color:inherit;font-weight:700">واتس‌اپ <span dir="ltr" style="white-space:nowrap">+374 43 805557</span></a> پیام بده تا کدت آزاد شود.',
     net:'اتصال به سرور برقرار نشد. اینترنت را بررسی کن و دوباره امتحان کن. اینترنت فقط برای فعال‌سازی اول لازم است.',
     setup:'سرور فعال‌سازی هنوز تنظیم نشده است.',
+    expired:'اعتبار این کد تمام شده است. برای ادامه، اشتراک را تمدید کن یا کد تازه بخر: <a href="https://wa.me/37443805557?text='+encodeURIComponent('سلام، می‌خواهم اشتراک آموزش ارمنی شیردال را تمدید کنم.')+'" target="_blank" rel="noopener" style="color:inherit;font-weight:700">واتس‌اپ <span dir="ltr" style="white-space:nowrap">+374 43 805557</span></a>',
     broken:'کد پذیرفته شد ولی محتوای برنامه باز نشد. لطفاً به <a href="https://wa.me/37443805557?text='+encodeURIComponent('سلام، درباره کد فعال‌سازی آموزش ارمنی شیردال سؤال دارم.')+'" target="_blank" rel="noopener" style="color:inherit;font-weight:700">واتس‌اپ <span dir="ltr" style="white-space:nowrap">+374 43 805557</span></a> پیام بده.'};
   function screen(err,busy,val){
     app.innerHTML='<div class="card result" style="margin-top:24px">'+
@@ -1232,20 +1242,26 @@ home();
     try{var r=await fetch(API+'?code='+encodeURIComponent(code)+'&device='+encodeURIComponent(deviceId())+qs(info),{redirect:'follow'});res=await r.json()}
     catch(e){return screen('net',false,code)}
     if(!res||!res.ok)return screen(res&&MSG[res.err]?res.err:'invalid',false,code);
-    if(window.__trialRunning){try{await unseal(res.key)}catch(e){return screen('broken',false,code)}
-      ls(KEY,JSON.stringify({key:res.key,code:code,at:Date.now()}));try{localStorage.removeItem(TKEY)}catch(e){}location.reload();return}
-    try{await start(res.key);ls(KEY,JSON.stringify({key:res.key,code:code,at:Date.now()}));try{localStorage.removeItem(TKEY)}catch(e){}}
+    var lic=JSON.stringify({key:res.key,code:code,at:Date.now(),plan:res.plan||'',exp:Number(res.exp)||0});
+    if(window.__trialRunning||window.__appStarted){try{await unseal(res.key)}catch(e){return screen('broken',false,code)}
+      ls(KEY,lic);try{localStorage.removeItem(TKEY)}catch(e){}location.reload();return}
+    try{window.LICENSE_INFO={plan:res.plan||'',exp:Number(res.exp)||0,code:code};await start(res.key);ls(KEY,lic);try{localStorage.removeItem(TKEY)}catch(e){}}
     catch(e){return screen('broken',false,code)}
   }
-  async function ping(code){
+  async function ping(code,expiredNow){
     if(!code||API.indexOf('http')!==0||navigator.onLine===false)return;
     try{var info=await devInfo();var r=await fetch(API+'?ping=1&code='+encodeURIComponent(code)+'&device='+encodeURIComponent(deviceId())+qs(info),{redirect:'follow'});var j=await r.json();
-      if(j&&j.ok===false&&(j.err==='released'||j.err==='used'||j.err==='invalid')){try{localStorage.removeItem(KEY)}catch(e){}location.reload()}}catch(e){}
+      if(j&&j.ok===false&&(j.err==='released'||j.err==='used'||j.err==='invalid')){try{localStorage.removeItem(KEY)}catch(e){}location.reload();return}
+      if(j&&(j.ok===true||j.err==='expired')&&j.exp!==undefined){var sv=JSON.parse(ls(KEY)||'{}'),ne=Number(j.exp)||0;
+        if(sv.key&&(sv.exp!==ne||sv.plan!==j.plan)){sv.exp=ne;sv.plan=j.plan||sv.plan;ls(KEY,JSON.stringify(sv));
+          if(!!(ne&&Date.now()>ne)!==!!expiredNow)location.reload()}}}catch(e){}
   }
   (async function(){
     try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(function(){})}catch(e){}
     var saved=ls(KEY);
-    if(saved){try{var sv=JSON.parse(saved);await start(sv.key);ping(sv.code);return}catch(e){}}
+    if(saved){try{var sv=JSON.parse(saved);
+      if(sv.exp&&Date.now()>sv.exp&&window.TRIAL_DATA){window.LICENSE_EXPIRED={code:sv.code,plan:sv.plan,exp:sv.exp};startTrial();ping(sv.code,true);return}
+      window.LICENSE_INFO={plan:sv.plan||'',exp:Number(sv.exp)||0,code:sv.code};await start(sv.key);ping(sv.code,false);return}catch(e){}}
     if((ls(TKEY)==='1'||/[?&]trial=1/.test(location.search))&&window.TRIAL_DATA){startTrial();return}
     screen();
   })();
