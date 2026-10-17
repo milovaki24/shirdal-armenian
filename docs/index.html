@@ -257,5 +257,14 @@ var SHOP = { whatsapp: '37443805557', plans: [
   if('serviceWorker' in navigator)navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){if(!/\/app\/$/.test(r.scope))r.unregister()})}).catch(function(){});
 })();
 </script>
+<script>/* referral: remember ?ref= and count one visit per phone */
+(function(){var API='https://script.google.com/macros/s/AKfycbzcRqUGPCgwbQpAe6zFFLjZUyM2RerZkrhYvtYc3zaEMDhEbvPh3mwffTrnzuyIWgXS/exec',RK='shirdal-ref';
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+var m=location.search.match(/[?&]ref=([a-z0-9_-]{2,24})/i);if(m&&!ls(RK))ls(RK,m[1].toLowerCase());var r=ls(RK);if(!r||ls('shirdal-ev-visit'))return;
+var d=ls('shirdal-device-id');if(!d){try{d=Array.from(crypto.getRandomValues(new Uint8Array(16)),function(b){return b.toString(16).padStart(2,'0')}).join('');ls('shirdal-device-id',d)}catch(e){return}}
+var ua=navigator.userAgent,mm=ua.match(/Android [\d.]+; ([^;)]+?)(?: Build|\))/),model=/iPhone/.test(ua)?'iPhone':/iPad/.test(ua)?'iPad':(mm&&mm[1]!=='K'?mm[1]:''),pf=ua.match(/Android ([\d.]+)/),pi=ua.match(/OS (\d+)_(\d+)/);
+var plat=pf?'Android '+pf[1]:pi&&/iPhone|iPad/.test(ua)?'iOS '+pi[1]+'.'+pi[2]:'';
+fetch(API+'?ev=visit&ref='+encodeURIComponent(r)+'&device='+encodeURIComponent(d)+'&model='+encodeURIComponent(model)+'&platform='+encodeURIComponent(plat)+'&source=site',{redirect:'follow'}).then(function(x){if(x.ok)ls('shirdal-ev-visit','1')}).catch(function(){})})();
+</script>
 </body>
 </html>

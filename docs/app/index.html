@@ -1169,7 +1169,8 @@ home();
 <script>/* ===== Activation gate: one code, one device ===== */
 (function(){
   var API='https://script.google.com/macros/s/AKfycbzcRqUGPCgwbQpAe6zFFLjZUyM2RerZkrhYvtYc3zaEMDhEbvPh3mwffTrnzuyIWgXS/exec';
-  var KEY='shirdal-license-v1', DEV='shirdal-device-id', TKEY='shirdal-trial';
+  var KEY='shirdal-license-v1', DEV='shirdal-device-id', TKEY='shirdal-trial', RKEY='shirdal-ref';
+  (function(){var m=location.search.match(/[?&]ref=([a-z0-9_-]{2,24})/i);if(m&&!ls(RKEY))ls(RKEY,m[1].toLowerCase())})();
   var app=document.getElementById('app');
   function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
   function hex(n){return Array.from(crypto.getRandomValues(new Uint8Array(n)),function(b){return b.toString(16).padStart(2,'0')}).join('')}
@@ -1183,7 +1184,7 @@ home();
     return {a:aud,t:hdr.t}}
   async function start(k){var d=await unseal(k);window.HY_AUDIO=d.a;window.TOPICS=d.t;window.__appStarted=true;window.shirdalShowActivation=function(){screen()};
     var s=document.createElement('script');s.textContent=document.getElementById('app-src').textContent;document.body.appendChild(s)}
-  function startTrial(){ls(TKEY,'1');var T=window.TRIAL_DATA||{};window.TRIAL_MODE=true;window.HY_AUDIO=T.a||{};window.TOPICS=[];
+  function startTrial(){ls(TKEY,'1');setTimeout(function(){ev('trial')},0);var T=window.TRIAL_DATA||{};window.TRIAL_MODE=true;window.HY_AUDIO=T.a||{};window.TOPICS=[];
     window.TRIAL_LOCKED=T.l||[];window.TRIAL_ROOMS=T.r||[];window.TRIAL_INFO=T.i||{};window.__trialRunning=true;
     window.shirdalShowActivation=function(){screen()};
     var s=document.createElement('script');s.textContent=document.getElementById('app-src').textContent;document.body.appendChild(s)}
@@ -1203,6 +1204,9 @@ home();
     try{var g=await tmo(fetch('https://ipapi.co/json/').then(function(r){return r.json()}),4000);o.ip=g.ip||'';o.country=[g.country_name,g.city].filter(Boolean).join(', ')}
     catch(e){try{var g2=await tmo(fetch('https://api.ipify.org?format=json').then(function(r){return r.json()}),3000);o.ip=g2.ip||''}catch(e2){}}
     return o}
+  function refQ(){var r=ls(RKEY);return r?'&ref='+encodeURIComponent(r):''}
+  function ev(name){var r=ls(RKEY),k='shirdal-ev-'+name;if(!r||ls(k)||API.indexOf('http')!==0)return;
+    devInfo().then(function(o){return fetch(API+'?ev='+name+'&ref='+encodeURIComponent(r)+'&device='+encodeURIComponent(deviceId())+qs(o),{redirect:'follow'})}).then(function(x){if(x&&x.ok)ls(k,'1')}).catch(function(){})}
   function qs(o){return Object.keys(o).filter(function(k){return o[k]}).map(function(k){return '&'+k+'='+encodeURIComponent(o[k])}).join('')}
   function norm(c){c=String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(c.indexOf('SHRD')===0)c=c.slice(4);
     if(c.length!==12)return null;return 'SHRD-'+c.slice(0,4)+'-'+c.slice(4,8)+'-'+c.slice(8)}
@@ -1239,7 +1243,7 @@ home();
     screen(null,true,code);
     var res;
     var info=await devInfo();
-    try{var r=await fetch(API+'?code='+encodeURIComponent(code)+'&device='+encodeURIComponent(deviceId())+qs(info),{redirect:'follow'});res=await r.json()}
+    try{var r=await fetch(API+'?code='+encodeURIComponent(code)+'&device='+encodeURIComponent(deviceId())+qs(info)+refQ(),{redirect:'follow'});res=await r.json()}
     catch(e){return screen('net',false,code)}
     if(!res||!res.ok)return screen(res&&MSG[res.err]?res.err:'invalid',false,code);
     var lic=JSON.stringify({key:res.key,code:code,at:Date.now(),plan:res.plan||'',exp:Number(res.exp)||0});
@@ -1258,6 +1262,8 @@ home();
   }
   (async function(){
     try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(function(){})}catch(e){}
+    ev('visit');if((window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true)ev('install');
+    addEventListener('appinstalled',function(){ev('install')});
     var saved=ls(KEY);
     if(saved){try{var sv=JSON.parse(saved);
       if(sv.exp&&Date.now()>sv.exp&&window.TRIAL_DATA){window.LICENSE_EXPIRED={code:sv.code,plan:sv.plan,exp:sv.exp};startTrial();ping(sv.code,true);return}
