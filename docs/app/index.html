@@ -248,6 +248,15 @@ td .say{padding:4px 8px}
 .rule h2{font-size:22px;font-weight:800}
 .rule p{max-width:62ch}
 .exs{display:grid;gap:8px}
+/* narrow phones: let grid rows shrink and wrap instead of pushing the card wider than the screen */
+.card>*,.rule,.exs,.exr,.lc,.opts,.listen{min-width:0}
+.exr{grid-template-columns:auto minmax(0,1fr)}
+.exr .w,.exr .m{overflow-wrap:anywhere}
+.exr .say{white-space:nowrap;flex-shrink:0}
+.show{flex-wrap:wrap;min-width:0}
+.show .W,.show .P{min-width:0;max-width:100%;overflow-wrap:anywhere;text-align:center}
+@media (max-width:400px){.exs .exr .w{font-size:18px}.exs .exr{padding:10px 12px;gap:4px 10px}}
+
 .exr{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline;background:var(--bg);border-radius:12px;padding:10px 14px}
 .exr .w{font-family:var(--hy);font-size:22px;font-weight:700;direction:ltr;grid-row:span 2}
 .exr .p{font-weight:600;color:var(--accent)}
