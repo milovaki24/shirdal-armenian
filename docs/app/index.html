@@ -314,6 +314,51 @@ canvas.pad.bad{border-color:var(--bad)}
   .kb{grid-template-columns:repeat(7,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.line .caret{animation:none}.prog i{transition:none}}
+
+/* ===== Polish layer (visual only; structure unchanged) ===== */
+:root{--shadow-1:0 1px 2px rgba(74,40,24,.06),0 4px 14px rgba(74,40,24,.07);--shadow-2:0 2px 4px rgba(74,40,24,.08),0 10px 28px rgba(74,40,24,.12);
+  --accent-2:#e07a2e;--glow:rgba(196,95,28,.28);--surface-hi:#fffdfb;--bg-hi:#f6eee9}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--shadow-1:0 1px 2px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.25);--shadow-2:0 2px 6px rgba(0,0,0,.4),0 12px 30px rgba(0,0,0,.35);--accent-2:#ffab6b;--glow:rgba(240,140,69,.25);--surface-hi:#2e2826;--bg-hi:#231f1e}}
+:root[data-theme="dark"]{--shadow-1:0 1px 2px rgba(0,0,0,.35),0 4px 14px rgba(0,0,0,.25);--shadow-2:0 2px 6px rgba(0,0,0,.4),0 12px 30px rgba(0,0,0,.35);--accent-2:#ffab6b;--glow:rgba(240,140,69,.25);--surface-hi:#2e2826;--bg-hi:#231f1e}
+body{background:radial-gradient(1200px 520px at 50% -180px,var(--bg-hi),transparent 70%) var(--bg) no-repeat;-webkit-font-smoothing:antialiased}
+.card,.today,.lesson,.lrow,.acell,.foot,.exr,.opt,.key,.tile,.ghost,.say,.x,canvas.pad{transition:transform .15s ease,box-shadow .2s ease,border-color .2s ease,background-color .2s ease}
+.card,.today{background:linear-gradient(180deg,var(--surface-hi),var(--surface));border-color:color-mix(in srgb,var(--line) 70%,transparent);box-shadow:var(--shadow-1);border-radius:20px}
+.lesson,.lrow,.acell{background:linear-gradient(180deg,var(--surface-hi),var(--surface));border-color:color-mix(in srgb,var(--line) 75%,transparent);box-shadow:var(--shadow-1);border-radius:16px}
+.lesson:hover:not(:disabled),.acell:hover{transform:translateY(-1px);box-shadow:var(--shadow-2);border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.lesson:active:not(:disabled),.acell:active,.opt:active:not(:disabled),.key:active:not(:disabled),.tile:active{transform:scale(.98)}
+.lesson .glyph,.carve,.lc .big{background:linear-gradient(160deg,color-mix(in srgb,var(--stone) 70%,#fff 30%),var(--stone) 55%,color-mix(in srgb,var(--stone) 85%,var(--stone-deep)));
+  box-shadow:inset 0 -5px 0 var(--stone-deep),inset 0 2px 0 rgba(255,255,255,.35),0 3px 10px rgba(74,40,24,.12)}
+.lc .big{box-shadow:inset 0 -7px 0 var(--stone-deep),inset 0 2px 0 rgba(255,255,255,.35),0 6px 18px rgba(74,40,24,.14)}
+.btn,.mic{background:linear-gradient(135deg,var(--accent-2),var(--accent));box-shadow:0 4px 14px var(--glow),inset 0 1px 0 rgba(255,255,255,.22);border-radius:14px;transition:transform .15s ease,box-shadow .2s ease,filter .2s}
+.btn:hover:not(:disabled),.mic:hover{filter:brightness(1.05);box-shadow:0 6px 20px var(--glow),inset 0 1px 0 rgba(255,255,255,.22)}
+.btn:active:not(:disabled),.mic:active{transform:translateY(1px) scale(.99)}
+.btn:disabled{box-shadow:none}
+.ghost{border-radius:14px;background:color-mix(in srgb,var(--surface) 60%,transparent)}
+.ghost:hover{box-shadow:var(--shadow-1)}
+.say{background:var(--surface);box-shadow:0 1px 3px rgba(74,40,24,.08)}
+.say:hover{border-color:var(--accent);color:var(--accent)}
+.x{background:var(--surface);box-shadow:0 1px 3px rgba(74,40,24,.08);border-radius:12px}
+.prog{height:10px;border-radius:999px;background:color-mix(in srgb,var(--line) 80%,transparent);box-shadow:inset 0 1px 2px rgba(0,0,0,.08)}
+.prog i{background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:999px;box-shadow:0 0 10px var(--glow)}
+.ring{background:conic-gradient(var(--accent-2),var(--accent) calc(var(--p)*1%),var(--line) 0);box-shadow:0 4px 12px var(--glow)}
+.opt{background:var(--surface);box-shadow:0 1px 3px rgba(74,40,24,.06);border-radius:14px}
+.opt:hover:not(:disabled){box-shadow:var(--shadow-1)}
+.opt.right{box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 22%,transparent)}
+.opt.wrong{box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 22%,transparent)}
+.key,.tile{background:var(--surface)}
+.tip{background:linear-gradient(135deg,var(--accent-soft),color-mix(in srgb,var(--accent-soft) 60%,var(--surface)));border-inline-start:4px solid var(--accent)}
+.exr{background:color-mix(in srgb,var(--bg) 70%,var(--surface))}
+.foot{box-shadow:var(--shadow-1);border-radius:16px}
+.kind{display:inline-block;justify-self:start;background:var(--accent-soft);border-radius:999px;padding:1px 10px;font-size:12px}
+canvas.pad{box-shadow:inset 0 2px 6px rgba(74,40,24,.06),var(--shadow-1);border-radius:20px}
+canvas.pad.ok{box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 22%,transparent)}
+canvas.pad.bad{box-shadow:0 0 0 4px color-mix(in srgb,var(--bad) 22%,transparent)}
+.hero h1{background:linear-gradient(135deg,var(--ink) 40%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+.section-h{display:flex;align-items:center;gap:10px}
+.section-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.stars{text-shadow:0 1px 6px var(--glow)}
+.result .bigstars{text-shadow:0 4px 18px var(--glow)}
+@media (prefers-reduced-motion:reduce){.card,.today,.lesson,.lrow,.acell,.opt,.key,.tile,.btn,.mic{transition:none}}
 </style>
 
 <div class="wrap" dir="rtl" id="app" aria-live="polite"></div>
@@ -1021,7 +1066,7 @@ function letterPage(l,upper){
 
 /* ===================== HANDWRITING RECOGNIZER =====================
    Target-centred verifier: best affine alignment of the drawing onto the target letter's skeleton, then precision/recall within a tolerance. */
-const HW={N:64,F:360,base:250,size:200,tpl:{},font:'"Noto Sans Armenian", "DejaVu Sans", sans-serif',r:2};
+const HW={N:64,F:360,base:250,size:200,tpl:{},font:'"Noto Sans Armenian", "DejaVu Sans", sans-serif',r:2,minF:0.78,tie:0,maxMiss:0.15,maxExtra:0.15,mdw:0.08};
 function hwCanvas(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return c}
 function hwBin(ctx,N){const d=ctx.getImageData(0,0,N,N).data,b=new Uint8Array(N*N);for(let i=0;i<N*N;i++)b[i]=d[i*4+3]>70?1:0;return b}
 function hwGrid(big){const N=HW.N,c=hwCanvas(N,N),ctx=c.getContext('2d');ctx.drawImage(big,0,0,N,N);return hwBin(ctx,N)}
@@ -1044,7 +1089,7 @@ function hwPts(b){const N=HW.N,p=[];for(let i=0;i<N*N;i++)if(b[i])p.push([i%N,(i
 function hwDT(pts){const N=HW.N,D=new Float32Array(N*N);for(let y=0;y<N;y++)for(let x=0;x<N;x++){let m=1e9;for(const p of pts){const dx=p[0]-x,dy=p[1]-y,d=dx*dx+dy*dy;if(d<m)m=d}D[y*N+x]=Math.sqrt(m)}return D}
 function hwShape(bin){const pts=hwPts(hwSkeleton(bin));if(pts.length<5)return null;let cx=0,cy=0;pts.forEach(p=>{cx+=p[0];cy+=p[1]});cx/=pts.length;cy/=pts.length;
   let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;pts.forEach(p=>{x0=Math.min(x0,p[0]);x1=Math.max(x1,p[0]);y0=Math.min(y0,p[1]);y1=Math.max(y1,p[1])});
-  return {pts,dt:hwDT(pts),cx,cy,w:x1-x0+1,h:y1-y0+1}}
+  return {pts,dt:hwDT(pts),cx,cy,w:x1-x0+1,h:y1-y0+1,y0,y1}}
 function hwTpl(text){return HW.tpl[text]||(HW.tpl[text]=hwShape(hwGrid(hwGlyphFrame(text,HW.font))))}
 function hwLook(dt,x,y){const N=HW.N;x=Math.round(x);y=Math.round(y);if(x<0||y<0||x>=N||y>=N)return 99;return dt[y*N+x]}
 /* fit of user shape U onto target T: search scale (relative to height ratio), aspect and shear; translation by centroid */
@@ -1054,9 +1099,23 @@ function hwFit(U,T){const r=HW.r;let best=null;const s0=T.h/U.h;
     for(const p of U.pts){const dy=p[1]-U.cy,X=T.cx+sx*((p[0]-U.cx)+sh*dy),Y=T.cy+sy*dy,d=hwLook(T.dt,X,Y);dP+=Math.min(d,8);if(d<=r)inP++}
     let inR=0,dR=0;for(const q of T.pts){const Y=(q[1]-T.cy)/sy,X=(q[0]-T.cx)/sx-sh*Y,d=hwLook(U.dt,U.cx+X,U.cy+Y);dR+=Math.min(d,8);if(d<=r)inR++}
     const prec=inP/U.pts.length,rec=inR/T.pts.length,md=(dP/U.pts.length+dR/T.pts.length)/2;
-    const f=Math.min(prec,rec),score=f-md*0.08;
-    if(!best||score>best.score)best={f,prec,rec,md,score}}
+    const f=Math.min(prec,rec),score=f-md*HW.mdw;
+    if(!best||score>best.score)best={f,prec,rec,md,score,sx,sy,sh}}
   return best}
+/* largest connected piece of the target that the drawing misses, and of the drawing that lies off the target (in cells, relative to letter height) */
+function hwComp(pts){const N=HW.N,m=new Uint8Array(N*N);pts.forEach(p=>m[p[1]*N+p[0]]=1);let best=0;
+  for(const p of pts){let i=p[1]*N+p[0];if(m[i]!==1)continue;let n=0;const st=[i];m[i]=2;
+    while(st.length){const j=st.pop();n++;const x=j%N,y=(j/N)|0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const X=x+dx,Y=y+dy;if(X<0||Y<0||X>=N||Y>=N)continue;const k=Y*N+X;if(m[k]===1){m[k]=2;st.push(k)}}}
+    if(n>best)best=n}return best}
+function hwGaps(U,T,F){const t=HW.r+1,miss=[],extra=[];
+  for(const q of T.pts){const Y=(q[1]-T.cy)/F.sy,X=(q[0]-T.cx)/F.sx-F.sh*Y;if(hwLook(U.dt,U.cx+X,U.cy+Y)>t)miss.push(q)}
+  for(const p of U.pts){const dy=p[1]-U.cy,X=T.cx+F.sx*((p[0]-U.cx)+F.sh*dy),Y=T.cy+F.sy*dy;if(hwLook(T.dt,X,Y)>t)extra.push(p)}
+  return {miss:hwComp(miss)/T.h,extra:hwComp(extra)*F.sy/T.h}}
+function hwDecide(rank,target,U){const i=rank.findIndex(x=>x.c===target);if(i<0)return false;const tg=rank[i];
+  if(tg.f<HW.minF)return false;
+
+  if(i>0&&rank[0].score-tg.score>HW.tie)return false;
+  const g=hwGaps(U,hwTpl(target),tg);tg.gaps=g;return g.miss<=HW.maxMiss&&g.extra<=HW.maxExtra}
 function hwRank(U,cands){return cands.map(c=>Object.assign({c},hwFit(U,hwTpl(c)))).sort((a,b)=>b.score-a.score)}
 
 /* ===================== WRITING PAD (graded) ===================== */
@@ -1102,7 +1161,7 @@ async function padCheck(){
   if(!shape)return {empty:true};
   const rank=hwRank(shape,PAD.upper?UP_SET:LOW_SET);
   const tg=rank.find(x=>x.c===PAD.ch);/* near-identical letters (e.g. ձ/ծ): accept the target when it scores within 0.02 of the best */
-  return {ok:!!tg&&tg.f>=0.75&&rank[0].score-tg.score<=0.02,best:rank[0].c,fit:tg?tg.f:0};
+  const ok=hwDecide(rank,PAD.ch,shape);return {ok,best:rank[0].c,fit:tg?tg.f:0};
 }
 function hwFailText(res){
   if(res.empty)return 'هنوز چیزی ننوشتی. حرف را روی صفحه بنویس و بعد «بررسی» را بزن.';
