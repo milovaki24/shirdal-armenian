@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@700;800&family=Vazirmatn:wght@400;600;800&display=swap">
 <style>
 :root{--bg:#efe5e0;--surface:#fbf7f4;--stone:#e6d1c6;--stone-deep:#c99f8c;--line:#dccbc2;--ink:#2a2220;--soft:#6c5d57;--accent:#c45f1c;--accent-ink:#fff;--accent-soft:#f6dcc8;--logo:none}
-@media (prefers-color-scheme:dark){:root{--bg:#1c1918;--surface:#272221;--stone:#3a302c;--stone-deep:#6a5247;--line:#3e3431;--ink:#f2e9e4;--soft:#b6a59e;--accent:#f08c45;--accent-ink:#1c1918;--accent-soft:#4a3020;--logo:invert(1);color-scheme:dark}}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1918;--surface:#272221;--stone:#3a302c;--stone-deep:#6a5247;--line:#3e3431;--ink:#f2e9e4;--soft:#b6a59e;--accent:#f08c45;--accent-ink:#1c1918;--accent-soft:#4a3020;--logo:none;color-scheme:dark}}
 *{box-sizing:border-box}
 html{background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 Vazirmatn,Tahoma,sans-serif}
@@ -27,7 +27,7 @@ p{margin:0}
 .btn.sec{background:transparent;color:var(--accent)}
 .btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
-nav img{width:58px;filter:var(--logo)}
+nav img{width:58px;filter:var(--logo);border-radius:22%;box-shadow:0 4px 12px rgba(10,40,120,.22)}
 nav .links{display:flex;gap:18px;font-size:14px}
 nav .links a{color:var(--soft);text-decoration:none}
 .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;padding:28px 0 48px}
