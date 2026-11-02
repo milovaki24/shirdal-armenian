@@ -1286,7 +1286,7 @@ home();
     catch(e){try{var g2=await tmo(fetch('https://api.ipify.org?format=json').then(function(r){return r.json()}),3000);o.ip=g2.ip||''}catch(e2){}}
     return o}
   function refQ(){var r=ls(RKEY);return r?'&ref='+encodeURIComponent(r):''}
-  function ev(name){var r=ls(RKEY),k='shirdal-ev-'+name;if(!r||ls(k)||API.indexOf('http')!==0)return;
+  function ev(name){var r=ls(RKEY)||'',k='shirdal-ev-'+name;if(ls(k)||API.indexOf('http')!==0)return;
     devInfo().then(function(o){return fetch(API+'?ev='+name+'&ref='+encodeURIComponent(r)+'&device='+encodeURIComponent(deviceId())+qs(o),{redirect:'follow'})}).then(function(x){if(x&&x.ok)ls(k,'1')}).catch(function(){})}
   function qs(o){return Object.keys(o).filter(function(k){return o[k]}).map(function(k){return '&'+k+'='+encodeURIComponent(o[k])}).join('')}
   function norm(c){c=String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(c.indexOf('SHRD')===0)c=c.slice(4);
