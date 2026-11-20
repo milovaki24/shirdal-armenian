@@ -1,0 +1,131 @@
+<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>مترجم محاوره ارمنی شیردال</title>
+<meta name="theme-color" content="#0f1420"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="مترجم ارمنی">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&family=Noto+Sans+Armenian:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1420;--card:#182033;--line:#2a3550;--ink:#eef2fa;--mute:#9aa6bf;--fa:#2d9bff;--hy:#f2a33a;--warn:#ff6b6b;--ok:#2fbf71}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:Vazirmatn,system-ui,sans-serif;height:100%}
+body{display:flex;flex-direction:column;max-width:640px;margin:0 auto}
+header{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+header img{width:40px;height:40px;border-radius:10px}
+header h1{font-size:17px;font-weight:900;line-height:1.3}
+header small{display:block;color:var(--mute);font-weight:400;font-size:12px}
+#log{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:12px}
+.hint{color:var(--mute);font-size:14px;line-height:1.9;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+.msg{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px 14px;display:grid;gap:6px;position:relative}
+.msg.fa2hy{border-right:5px solid var(--fa)} .msg.hy2fa{border-right:5px solid var(--hy)}
+.who{font-size:12px;color:var(--mute)}
+.heard{font-size:14px;color:var(--mute)}
+.hy{font-family:'Noto Sans Armenian',sans-serif;direction:ltr;text-align:left}
+.big{font-size:24px;font-weight:700;line-height:1.5}
+.big.hy{font-size:26px}
+.say{color:var(--fa);font-weight:700;font-size:16px}
+.back{font-size:14px;color:var(--ink);opacity:.85}
+.back b{color:var(--mute);font-weight:400}
+.warn{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.5);color:#ffb3b3;border-radius:12px;padding:8px 10px;font-size:14px;line-height:1.7}
+.note{font-size:13px;color:var(--mute);line-height:1.7}
+.alt{font-size:14px} .alt summary{cursor:pointer;color:var(--mute)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.acts button{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px}
+.err{color:#ffb3b3;font-size:14px;text-align:center}
+.wait{display:flex;gap:6px;align-items:center;color:var(--mute);font-size:14px}
+.wait i{width:8px;height:8px;border-radius:50%;background:var(--mute);animation:b 1s infinite}
+.wait i:nth-child(2){animation-delay:.15s}.wait i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,100%{opacity:.25}50%{opacity:1}}
+footer{padding:10px 12px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:grid;gap:10px;background:var(--bg)}
+.mics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mic{border:0;border-radius:20px;padding:14px 8px;font:inherit;font-weight:900;font-size:16px;color:#fff;display:grid;gap:2px;place-items:center;touch-action:manipulation}
+.mic span{font-size:28px;line-height:1}
+.mic small{font-weight:400;font-size:12px;opacity:.9}
+.mic.fa{background:var(--fa)} .mic.hy{background:var(--hy);color:#1d1406}
+.mic.rec{animation:p 1s infinite;outline:4px solid rgba(255,255,255,.6)}
+@keyframes p{50%{transform:scale(.97)}}
+.mic.hy .lbl{font-family:'Noto Sans Armenian',sans-serif}
+.row{display:flex;gap:8px}
+.row textarea{flex:1;resize:none;height:46px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;padding:10px 12px;font-size:15px}
+.row select,.row button{border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;padding:0 10px}
+.row button{background:var(--ok);border:0;color:#04210f;font-weight:900;padding:0 16px}
+#show{position:fixed;inset:0;background:#fff;color:#111;display:none;flex-direction:column;justify-content:center;align-items:center;padding:24px;text-align:center;z-index:9}
+#show .t{font-family:'Noto Sans Armenian',sans-serif;font-size:44px;font-weight:700;line-height:1.4;direction:ltr}
+#show .c{margin-top:28px;font-size:16px;color:#666}
+.left{font-size:12px;color:var(--mute);text-align:center}
+</style></head><body>
+<header><img src="icon-192.png" alt=""><h1>مترجم محاوره ارمنی شیردال<small>حرف خیابانی را می‌فهمد · نسخه آزمایشی رایگان</small></h1></header>
+<div id="log"><div class="hint">🎙️ دکمه آبی را بزنید و فارسی حرف بزنید؛ ترجمه ارمنی محاوره‌ای و مؤدبانه می‌گیرید، به‌همراه اینکه طرف مقابل دقیقاً چه می‌شنود.<br>🎙️ دکمه نارنجی را بدهید به طرف ارمنی تا حرف بزند؛ حتی با لهجه، کلمات روسی یا حرف شکسته هم معنی‌اش را به فارسی می‌بینید.<br>⚠️ اگر جمله‌ای ممکن است بی‌ادبانه یا دوپهلو برداشت شود، هشدار می‌دهد.</div></div>
+<footer>
+ <div class="mics">
+  <button class="mic fa" id="mfa"><span>🎙️</span>فارسی بگو<small>من حرف می‌زنم</small></button>
+  <button class="mic hy" id="mhy"><span>🎙️</span><b class="lbl">Խոսեք հայերեն</b><small>طرف ارمنی حرف بزند</small></button>
+ </div>
+ <div class="row"><textarea id="txt" placeholder="یا اینجا بنویسید… (فارسی یا ارمنی)"></textarea><button id="send">ترجمه</button></div>
+ <div class="left" id="left"></div>
+</footer>
+<div id="show" onclick="this.style.display='none'"><div class="t" id="showt"></div><div class="c">برای بستن لمس کنید</div></div>
+<script>
+const API='https://script.google.com/macros/s/AKfycbzcRqUGPCgwbQpAe6zFFLjZUyM2RerZkrhYvtYc3zaEMDhEbvPh3mwffTrnzuyIWgXS/exec';
+const $=id=>document.getElementById(id), log=$('log');
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let dev;try{dev=localStorage.getItem('tr-dev');if(!dev){const a=new Uint8Array(16);crypto.getRandomValues(a);dev=[...a].map(b=>b.toString(16).padStart(2,'0')).join('');localStorage.setItem('tr-dev',dev)}}catch(e){dev='anon'+Date.now()+'0000000000'}
+const ERR={nokey:'سرویس ترجمه هنوز فعال نشده است.',limit:'سقف ترجمه آزمایشی شما پر شد؛ چند ساعت دیگر دوباره امتحان کنید.',busy:'سرویس شلوغ است؛ چند ثانیه دیگر دوباره بزنید.',net:'اتصال برقرار نشد.',api:'سرویس ترجمه پاسخ نداد.',parse:'ترجمه کامل نرسید؛ دوباره امتحان کنید.',empty:'چیزی شنیده نشد.',toolong:'صدا خیلی طولانی است؛ کوتاه‌تر بگویید.',device:'خطای دستگاه.'};
+function scroll(){log.scrollTop=log.scrollHeight}
+function waitEl(dir){const d=document.createElement('div');d.className='msg '+dir;d.innerHTML='<div class="wait"><i></i><i></i><i></i>&nbsp;در حال شنیدن و ترجمه…</div>';log.appendChild(d);scroll();return d}
+async function call(payload,dir){
+  const box=waitEl(dir);
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({tr:1,device:dev,dir},payload)),redirect:'follow'});
+    const j=await r.json();
+    if(!j.ok){box.innerHTML='<div class="err">'+esc(ERR[j.err]||'خطا')+'</div>';return}
+    render(box,j.r,dir); if(typeof j.left==='number')$('left').textContent='ترجمه باقی‌مانده در این چند ساعت: '+j.left;
+  }catch(e){box.innerHTML='<div class="err">'+ERR.net+'</div>'}
+  scroll();
+}
+function render(box,r,dir){
+  const toHy=/[Ա-֏]/.test(r.translation||'');
+  box.className='msg '+(toHy?'fa2hy':'hy2fa');
+  let h='<div class="who">'+(toHy?'شما گفتید':'طرف ارمنی گفت')+'</div>';
+  if(r.heard)h+='<div class="heard '+(toHy?'':'hy')+'">'+esc(r.heard)+'</div>';
+  if(toHy){
+    h+='<div class="big hy">'+esc(r.translation)+'</div>';
+    if(r.pronunciation_fa)h+='<div class="say">🔊 '+esc(r.pronunciation_fa)+'</div>';
+    if(r.back_translation_fa)h+='<div class="back"><b>طرف مقابل می‌فهمد: </b>'+esc(r.back_translation_fa)+'</div>';
+    if(r.polite_hy&&r.polite_hy!==r.translation)h+='<details class="alt"><summary>نسخه رسمی‌تر</summary><div class="hy">'+esc(r.polite_hy)+'</div></details>';
+  }else{
+    h+='<div class="big">'+esc(r.translation)+'</div>';
+    if(r.meaning_fa&&r.meaning_fa!==r.translation)h+='<div class="back"><b>منظورش: </b>'+esc(r.meaning_fa)+'</div>';
+  }
+  if(r.warning_fa)h+='<div class="warn">⚠️ '+esc(r.warning_fa)+'</div>';
+  if(r.notes_fa)h+='<div class="note">💡 '+esc(r.notes_fa)+'</div>';
+  if(typeof r.confidence==='number'&&r.confidence<0.6)h+='<div class="note">ممکن است درست شنیده نشده باشد؛ اگر لازم است دوباره بگویید.</div>';
+  h+='<div class="acts">'+(toHy?'<button data-a="show">نمایش بزرگ به طرف مقابل</button>':'')+'<button data-a="copy">کپی</button></div>';
+  box.innerHTML=h; box._t=r.translation;
+}
+log.addEventListener('click',e=>{const b=e.target.closest('button[data-a]');if(!b)return;const t=b.closest('.msg')._t||'';
+  if(b.dataset.a==='show'){$('showt').textContent=t;$('show').style.display='flex'}
+  else{navigator.clipboard&&navigator.clipboard.writeText(t);b.textContent='کپی شد ✓'}});
+$('send').onclick=()=>{const t=$('txt').value.trim();if(!t)return;$('txt').value='';const dir=/[Ա-֏]/.test(t)?'hy2fa':'fa2hy';call({text:t},dir)};
+// ---- recording: MediaRecorder -> decode -> 16 kHz mono WAV (works on Android and iPhone) ----
+let rec=null,chunks=[],stream=null,curDir=null,timer=null;
+async function start(dir,btn){
+  if(rec){stop();return}
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}})}catch(e){alert('اجازه میکروفون داده نشد.');return}
+  chunks=[];curDir=dir;rec=new MediaRecorder(stream);rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);
+  rec.onstop=async()=>{btn.classList.remove('rec');stream.getTracks().forEach(t=>t.stop());const blob=new Blob(chunks,{type:rec.mimeType||'audio/webm'});rec=null;clearTimeout(timer);
+    if(blob.size<2000)return;try{const wav=await toWav(blob);call({audio:wav,mime:'audio/wav'},curDir)}catch(e){log.insertAdjacentHTML('beforeend','<div class="err">صدا پردازش نشد.</div>')}};
+  rec.start();btn.classList.add('rec');timer=setTimeout(stop,25000);
+}
+function stop(){if(rec&&rec.state!=='inactive')rec.stop()}
+async function toWav(blob){
+  const ac=new (window.AudioContext||window.webkitAudioContext)();const buf=await ac.decodeAudioData(await blob.arrayBuffer());
+  const sr=16000,len=Math.ceil(buf.duration*sr);const off=new OfflineAudioContext(1,len,sr);const s=off.createBufferSource();s.buffer=buf;s.connect(off.destination);s.start();
+  const out=(await off.startRendering()).getChannelData(0);ac.close&&ac.close();
+  const dv=new DataView(new ArrayBuffer(44+out.length*2));const W=(o,str)=>{for(let i=0;i<str.length;i++)dv.setUint8(o+i,str.charCodeAt(i))};
+  W(0,'RIFF');dv.setUint32(4,36+out.length*2,true);W(8,'WAVE');W(12,'fmt ');dv.setUint32(16,16,true);dv.setUint16(20,1,true);dv.setUint16(22,1,true);dv.setUint32(24,sr,true);dv.setUint32(28,sr*2,true);dv.setUint16(32,2,true);dv.setUint16(34,16,true);W(36,'data');dv.setUint32(40,out.length*2,true);
+  for(let i=0;i<out.length;i++){const v=Math.max(-1,Math.min(1,out[i]));dv.setInt16(44+i*2,v<0?v*0x8000:v*0x7fff,true)}
+  const bytes=new Uint8Array(dv.buffer);let bin='';for(let i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+0x8000));return btoa(bin);
+}
+$('mfa').onclick=function(){start('fa2hy',this)};$('mhy').onclick=function(){start('hy2fa',this)};
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
